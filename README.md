@@ -10,7 +10,7 @@ This project provides an example scenario - *Prim's Shortest Spanning Tree* - sh
 
 ## Installation
 
-Download the binary JAR file from the [release](releases/latest) section, then copy it to [GraphsJ](https://github.com/giancosta86/GraphsJ)'s scenarios directory to automatically make it available within the program - with no restart required.
+Download the binary JAR file from the [release](https://github.com/giancosta86/GraphsJ-scenarios/releases/latest) section, then copy it to [GraphsJ](https://github.com/giancosta86/GraphsJ)'s scenarios directory to automatically make it available within the program - with no restart required.
 
 
 ## Screenshots
