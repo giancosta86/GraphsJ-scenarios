@@ -28,7 +28,6 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
         classpath 'info.gianlucacosta.moonlicense:moonlicense-gradle:4.0'
         classpath 'info.gianlucacosta.aurora:aurora:4.0'
     }
@@ -37,7 +36,6 @@ buildscript {
 
 apply plugin: 'scala'
 apply plugin: 'maven'
-apply plugin: 'com.jfrog.bintray'
 apply plugin: 'info.gianlucacosta.moonlicense'
 apply plugin: 'info.gianlucacosta.aurora'
 
@@ -64,12 +62,6 @@ aurora {
         name = 'Gianluca Costa'
         email = 'gianluca@gianlucacosta.info'
         url = 'http://gianlucacosta.info/'
-    }
-
-    bintray {
-        repo = 'Hephaestus'
-        licenses = ['Apache-2.0']
-        labels = ['GraphsJ', 'graphs', 'scenarios', 'Scala', 'ScalaFX', 'example']
     }
 }
 
