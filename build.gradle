@@ -35,7 +35,6 @@ buildscript {
 
 
 apply plugin: 'scala'
-apply plugin: 'maven'
 apply plugin: 'info.gianlucacosta.moonlicense'
 apply plugin: 'info.gianlucacosta.aurora'
 
