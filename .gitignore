@@ -2,4 +2,4 @@
 /build/**
 /.idea/**
 /*.iml
-/src/main/scala/info/gianlucacosta/graphsj/graphsj_scenarios/ArtifactInfo.scala
+/src/generated/**

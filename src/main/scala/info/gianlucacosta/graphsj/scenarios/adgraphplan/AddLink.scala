@@ -18,42 +18,26 @@
   ===========================================================================
 */
 
-package info.gianlucacosta.graphsj.scenarios.basicsst
+package info.gianlucacosta.graphsj.scenarios.adgraphplan
 
 import java.util.UUID
 
-import info.gianlucacosta.eighthbridge.graphs.point2point.specific.Weighted
-import info.gianlucacosta.eighthbridge.graphs.point2point.visual.{VisualLink, VisualLinkDefaultSelectedSettings, VisualLinkDefaultSettings, VisualLinkSettings}
-import info.gianlucacosta.eighthbridge.util.Numbers
-
 import scalafx.geometry.Point2D
 
-
-case class PrimLink(weight: Double,
-                    internalPoints: List[Point2D] = Nil,
-                    @transient selected: Boolean = false,
+case class AddLink(
+                    internalPoints: List[Point2D] = List(),
+                    selected: Boolean = false,
                     labelCenter: Option[Point2D] = None,
-                    settings: VisualLinkSettings = VisualLinkDefaultSettings,
-                    selectedSettings: VisualLinkSettings = VisualLinkDefaultSelectedSettings,
                     id: UUID = UUID.randomUUID()
-                   ) extends VisualLink with Weighted {
-
-  val minWeight = 0.0
-  val maxWeight = Double.MaxValue
-
-  checkWeight()
+                  ) extends ConstructionLink {
 
 
-  override def text: String = Numbers.smartString(weight)
+  override val styleClasses: List[String] =
+    List("addLink")
 
-
-  override def visualCopy(internalPoints: List[Point2D], text: String, selected: Boolean, labelCenter: Option[Point2D]): VisualLink = {
-    copy(internalPoints = internalPoints, //do NOT copy the text
+  override def visualCopy(internalPoints: List[Point2D], selected: Boolean, labelCenter: Option[Point2D]): AddLink =
+    copy(
+      internalPoints = internalPoints,
       selected = selected,
       labelCenter = labelCenter)
-  }
-
-
-  override def weightCopy(weight: Double): Weighted =
-    copy(weight = weight)
 }

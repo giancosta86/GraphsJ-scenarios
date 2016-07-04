@@ -18,23 +18,15 @@
   ===========================================================================
 */
 
-package info.gianlucacosta.graphsj.scenarios.basicsst
+package info.gianlucacosta.graphsj.scenarios.sst
 
 import info.gianlucacosta.eighthbridge.graphs.point2point.visual.VisualGraph
-import info.gianlucacosta.eighthbridge.util.Numbers
-import info.gianlucacosta.eighthbridge.util.fx.dialogs.InputDialogs
 import info.gianlucacosta.graphsj.{Algorithm, OutputConsole}
-
-import scalafx.scene.paint.Color
-
-
-object PrimAlgorithm {
-  private val SolutionLinkColor = Color.valueOf("#e5a2cc")
-  private val SolutionSelectedLinkColor = Color.valueOf("#b72c84")
-}
+import info.gianlucacosta.helios.fx.dialogs.InputDialogs
+import info.gianlucacosta.helios.mathutils.Numbers
 
 
-class PrimAlgorithm extends Algorithm {
+class PrimAlgorithm[G <: VisualGraph[PrimVertex, PrimLink, G]] extends Algorithm[PrimVertex, PrimLink, G] {
   private var vList: List[PrimVertex] = _
   private var wList: List[PrimVertex] = _
   private var vBar: PrimVertex = _
@@ -46,16 +38,16 @@ class PrimAlgorithm extends Algorithm {
   val verbose = true //This basic algorithm version is always verbose
 
 
-  private def edgeBindingsAsString(edgeBindings: Seq[(PrimVertex, PrimVertex)]): String = {
+  private def edgeBindingsAsString(edgeBindings: List[(PrimVertex, PrimVertex)]): String = {
     edgeBindings
       .map(binding => s"{${binding._1.name}, ${binding._2.name}}")
       .mkString("[", ", ", "]")
   }
 
 
-  private def getMinWeightBetween(graph: VisualGraph, vertexes: Set[PrimVertex]): Double = {
-    graph.getEdgesBetween(vertexes)
-      .map(_.asInstanceOf[PrimLink].weight)
+  private def getMinWeightBetween(graph: G, vertexes: Set[PrimVertex]): Double = {
+    graph.getLinksBetween(vertexes)
+      .map(_.weight)
       .toList
       .sorted
       .headOption
@@ -63,7 +55,7 @@ class PrimAlgorithm extends Algorithm {
   }
 
 
-  override def runStep(stepIndex: Int, graph: VisualGraph, console: OutputConsole): (VisualGraph, Boolean) = {
+  override def runStep(stepIndex: Int, graph: G, console: OutputConsole): (G, Boolean) = {
     stepIndex match {
       case 0 =>
         init(graph, console)
@@ -74,7 +66,7 @@ class PrimAlgorithm extends Algorithm {
   }
 
 
-  private def init(graph: VisualGraph, console: OutputConsole): (VisualGraph, Boolean) = {
+  private def init(graph: G, console: OutputConsole): (G, Boolean) = {
     if (graph.unlinkedVertexes.nonEmpty) {
       throw new RuntimeException("Every vertex in the graph must be connected!")
     }
@@ -83,7 +75,6 @@ class PrimAlgorithm extends Algorithm {
       .vertexes
       .toList
       .sortBy(_.text)
-      .map(_.asInstanceOf[PrimVertex])
 
 
     val v1input = InputDialogs.askForItem("Start vertex:", vList)
@@ -147,7 +138,7 @@ class PrimAlgorithm extends Algorithm {
   }
 
 
-  private def runStandardStep(stepIndex: Int, graph: VisualGraph, console: OutputConsole): (VisualGraph, Boolean) = {
+  private def runStandardStep(stepIndex: Int, graph: G, console: OutputConsole): (G, Boolean) = {
     if (verbose) {
       console.writeHeader("Step " + stepIndex)
       console.writeln()
@@ -189,22 +180,20 @@ class PrimAlgorithm extends Algorithm {
     }
 
 
-    val link = graph.getEdgesBetween(Set(vBar.bestVertex.get, vBar))
-      .map(link => link.asInstanceOf[PrimLink])
+    val link = graph.getLinksBetween(Set(vBar.bestVertex.get, vBar))
       .filter(link => link.weight == minBest)
       .head
 
     val newLink =
       link.copy(
-        settings = link.settings.copy(lineColor = PrimAlgorithm.SolutionLinkColor),
-        selectedSettings = link.selectedSettings.copy(lineColor = PrimAlgorithm.SolutionSelectedLinkColor)
+        styleClasses = List("solution")
       )
 
     val newGraph =
       graph
         .replaceVertexes(
           vList
-            .map(vVertex => graph.getVertex(vVertex.id).get.asInstanceOf[PrimVertex].copy(
+            .map(vVertex => graph.getVertex(vVertex.id).get.copy(
               bestVertex = vVertex.bestVertex,
               distanceFromBestVertex = vVertex.distanceFromBestVertex
             ))

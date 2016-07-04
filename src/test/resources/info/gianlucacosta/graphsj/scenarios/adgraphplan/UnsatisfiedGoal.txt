@@ -1,0 +1,14 @@
+/*
+ *
+ * This problem has an unsatisfied goal
+ *
+ */
+
+START: a
+
+GOAL: z
+
+
+ACTION: op
+PRE: a
+POST: b

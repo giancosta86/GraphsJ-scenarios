@@ -18,40 +18,50 @@
   ===========================================================================
 */
 
-package info.gianlucacosta.graphsj.scenarios.basicsst
+package info.gianlucacosta.graphsj.scenarios.sst
 
 import java.util.UUID
 
+import info.gianlucacosta.eighthbridge.fx.canvas.basic.BasicVertex
 import info.gianlucacosta.eighthbridge.graphs.point2point.specific.Named
-import info.gianlucacosta.eighthbridge.graphs.point2point.visual.{VisualVertex, VisualVertexDefaultSelectedSettings, VisualVertexDefaultSettings, VisualVertexSettings}
-import info.gianlucacosta.eighthbridge.util.Numbers
+import info.gianlucacosta.helios.mathutils.Numbers
 
-import scalafx.geometry.Point2D
+import scalafx.geometry.{Dimension2D, Point2D}
+
+
+object PrimVertex {
+  val FontDimension = new Dimension2D(12, 19)
+}
 
 case class PrimVertex(
                        center: Point2D,
+                       styleClasses: List[String] = List(),
                        name: String = "",
                        bestVertex: Option[PrimVertex] = None,
                        distanceFromBestVertex: Option[Double] = None,
                        @transient selected: Boolean = false,
-                       settings: VisualVertexSettings = VisualVertexDefaultSettings,
-                       selectedSettings: VisualVertexSettings = VisualVertexDefaultSelectedSettings,
                        id: UUID = UUID.randomUUID()
-                     ) extends VisualVertex with Named {
+                     ) extends BasicVertex[PrimVertex] with Named[PrimVertex] {
 
 
-  def text: String =
+  override def dimension: Dimension2D =
+    BasicVertex.estimateVertexSize(text, PrimVertex.FontDimension, 10)
+
+
+  override val text: String =
     if (bestVertex.nonEmpty)
       s"${name} {${bestVertex.get.name}, ${Numbers.smartString(distanceFromBestVertex.get)}}"
     else
       name
 
 
-  override def visualCopy(center: Point2D, text: String, selected: Boolean): VisualVertex =
-    copy(center = center, //do NOT copy the text
-      selected = selected)
+  override def visualCopy(center: Point2D, selected: Boolean): PrimVertex =
+    copy(
+      center = center,
+      selected = selected
+    )
 
 
-  override def nameCopy(name: String): Named =
+  override def nameCopy(name: String): PrimVertex =
     copy(name = name)
 }

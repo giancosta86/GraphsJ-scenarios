@@ -1,0 +1,61 @@
+/*----------
+ * VERTEXES
+ *----------*/
+
+
+.propositionVertex > .body {
+    -fx-fill: lightcyan;
+
+    -fx-arc-width: 25;
+    -fx-arc-height: 25;
+}
+
+
+.propositionVertex:selected > .body {
+    -fx-fill: lightblue;
+}
+
+
+.stepVertex > .body {
+    -fx-arc-width: 0;
+    -fx-arc-height: 0;
+}
+
+
+
+/*-------
+ * LINKS
+ *-------*/
+
+
+.preconditionLink .line {
+    -fx-stroke: gold;
+    -fx-stroke-width: 3;
+}
+
+.preconditionLink:selected .line {
+    -fx-stroke: goldenrod;
+}
+
+
+.addLink .line {
+    -fx-stroke: MediumSpringGreen;
+    -fx-stroke-width: 3;
+}
+
+
+.addLink:selected .line {
+    -fx-stroke: green;
+}
+
+
+.deleteLink .line {
+    -fx-stroke: salmon;
+    -fx-stroke-width: 3;
+    -fx-stroke-dash-array: 5 5;
+}
+
+
+.deleteLink:selected .line {
+    -fx-stroke: maroon;
+}

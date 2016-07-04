@@ -5,22 +5,30 @@
 
 ## Introduction
 
-This project provides an example scenario - *Prim's Shortest Spanning Tree* - showing how to easily implement custom scenarios using the latest version of the [GraphsJ Scenario Development Kit](https://github.com/giancosta86/GraphsJ-sdk) and the [EighthBridge](https://github.com/giancosta86/EighthBridge) toolkit.
+**GraphsJ - Scenarios** provides ready-made scenarios to solve problems in the domains of *Operations Research* and *Artificial Intelligence*.
+
+Apart from their didactic value, these examples can show you how to easily create custom scenarios using the [GraphsJ Scenario Development Kit](https://github.com/giancosta86/GraphsJ-sdk) and its dependencies - especially  [LambdaPrism](https://github.com/giancosta86/LambdaPrism) for Artificial Intelligence and [EighthBridge](https://github.com/giancosta86/EighthBridge) for graph modeling and rendering.
 
 
 ## Installation
 
-Download the binary JAR file from the [release](https://github.com/giancosta86/GraphsJ-scenarios/releases/latest) section, then copy it to [GraphsJ](https://github.com/giancosta86/GraphsJ)'s scenarios directory to automatically make it available within the program - with no restart required.
+The recommended way to install this project is:
+
+0. Run GraphsJ
+
+0. Choose *Settings -> Install predefined scenarios*
 
 
 ## Screenshots
 
-![Prim SST](screenshots/BasicPrimSST.png)
+### Add/Delete GraphPlan
+
+![Add/Delete GraphPlan](screenshots/AdGraphPlan.png)
 
 
-## Example
+### Prim's Shortest Spanning Tree (SST)
 
-A problem featuring SST is available as an [example document](examples/BasicPrimSST.gj4) that can be opened in GraphsJ after installing the scenario JAR as described above.
+![Prim's SST](screenshots/PrimSST.png)
 
 
 ## Further references
@@ -28,5 +36,7 @@ A problem featuring SST is available as an [example document](examples/BasicPrim
 * [GraphsJ - Scenario Development Kit](https://github.com/giancosta86/GraphsJ-sdk)
 
 * [GraphsJ](https://github.com/giancosta86/GraphsJ)
+
+* [LambdaPrism](https://github.com/giancosta86/LambdaPrism)
 
 * [EighthBridge](https://github.com/giancosta86/EighthBridge)

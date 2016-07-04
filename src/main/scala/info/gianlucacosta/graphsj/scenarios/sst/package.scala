@@ -18,25 +18,10 @@
   ===========================================================================
 */
 
-package info.gianlucacosta.graphsj.scenarios.basicsst
+package info.gianlucacosta.graphsj.scenarios
 
-import info.gianlucacosta.eighthbridge.fx.canvas.basic.editing.{VertexNamingController, WeightLinkController}
-import info.gianlucacosta.eighthbridge.graphs.point2point.visual.{VisualGraph, VisualVertex}
+import info.gianlucacosta.eighthbridge.graphs.point2point.visual.DefaultVisualGraph
 
-import scalafx.geometry.Point2D
-
-class PrimDesignController extends VertexNamingController[PrimVertex, PrimLink] with WeightLinkController[PrimVertex, PrimLink] {
-  override protected def instantiateVertex(center: Point2D, vertexName: String): PrimVertex =
-    new PrimVertex(center = center, name = vertexName)
-
-
-  override def createLink(graph: VisualGraph, sourceVertex: VisualVertex, targetVertex: VisualVertex): Option[VisualGraph] = {
-    val link = new PrimLink(
-      weight = 0
-    )
-
-    Some(
-      graph.bindLink(sourceVertex, targetVertex, link)
-    )
-  }
+package object sst {
+  type PrimGraph = DefaultVisualGraph[PrimVertex, PrimLink]
 }
