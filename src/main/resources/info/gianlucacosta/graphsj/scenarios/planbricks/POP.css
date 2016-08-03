@@ -1,0 +1,119 @@
+/*
+ * VERTEXES
+ */
+
+.vertex .literalsHeader {
+    -fx-font-weight: bold;
+}
+
+.vertex .preconditions .satisfied {
+    -fx-fill: green;
+}
+
+
+.vertex .preconditions .unsatisfied {
+    -fx-fill: red;
+}
+
+.vertex .signature {
+    -fx-font: bold 24 Arial;
+}
+
+
+.satisfiedStep > .body {
+    -fx-fill: #baffba;
+}
+
+.satisfiedStep:selected > .body {
+    -fx-fill: #69d469;
+}
+
+.satisfiedStep .preconditions {
+    -fx-fill: black;
+}
+
+
+.threat > .body {
+    -fx-fill: #f8c7c7;
+}
+
+
+.threat:selected > .body {
+    -fx-fill: #e56767;
+}
+
+
+
+ /*
+  * LINKS
+  */
+
+.causalLink .line {
+    -fx-stroke: MediumSpringGreen;
+}
+
+.causalLink .internalPointHandle {
+    -fx-fill: MediumSpringGreen;
+}
+
+
+.causalLink:selected .line {
+    -fx-stroke: green;
+}
+
+
+.causalLink:selected .internalPointHandle {
+    -fx-fill: green;
+}
+
+
+
+.threatened .line {
+    -fx-stroke: red;
+}
+
+
+.threatened .label {
+    -fx-fill: red;
+}
+
+
+.threatened .internalPointHandle {
+    -fx-fill: red;
+}
+
+
+.threatened:selected .line {
+    -fx-stroke: maroon;
+}
+
+.threatened:selected .label {
+    -fx-fill: maroon;
+}
+
+
+.threatened:selected .internalPointHandle {
+    -fx-fill: maroon;
+}
+
+
+
+.temporalLink .line {
+    -fx-stroke: gold;
+    -fx-stroke-dash-array: 10 15;
+}
+
+
+.temporalLink .internalPointHandle {
+    -fx-fill: gold;
+}
+
+
+.temporalLink:selected .line {
+    -fx-stroke: goldenrod;
+}
+
+
+.temporalLink:selected .internalPointHandle {
+    -fx-fill: goldenrod;
+}

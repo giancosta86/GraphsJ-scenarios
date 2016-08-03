@@ -21,6 +21,10 @@ The recommended way to install this project is:
 
 ## Screenshots
 
+### PlanBricks - Partial Order Planning (POP)
+
+![Partial Order Planning](screenshots/PartialOrderPlanning.png)
+
 ### Add/Delete GraphPlan
 
 ![Add/Delete GraphPlan](screenshots/AdGraphPlan.png)
