@@ -20,6 +20,9 @@
 
 package info.gianlucacosta.graphsj.scenarios.adgraphplan
 
+import info.gianlucacosta.eighthbridge.fx.canvas.basic.BasicVertexNode
+import info.gianlucacosta.eighthbridge.fx.canvas.basic.BasicVertexNode.DimensionQuery
+
 import scalafx.geometry.{Dimension2D, Point2D}
 
 trait ConstructionLevel[TItem, TVertex <: ConstructionVertex] {
@@ -33,59 +36,46 @@ trait ConstructionLevel[TItem, TVertex <: ConstructionVertex] {
   protected def createMutexMap(): Map[TItem, Set[TItem]]
 
 
-  private val estimatedWidths: Map[TItem, Double] =
-    items
-      .map(item =>
-        item -> estimateVertexWidth(item)
+  private val itemDimensions: Map[TItem, Dimension2D] =
+    items.zip(
+      BasicVertexNode.getDimensions(
+        GraphPlanScenario.Stylesheets,
+
+        items.map(item =>
+          DimensionQuery(
+            getItemVertexLabel(
+              item,
+              mutexMap.getOrElse(item, Set())
+            )
+          )
+        )
       )
+    )
       .toMap
 
 
-  private def estimateVertexWidth(item: TItem): Double = {
-    val mutexStrings =
-      mutexMap
-        .getOrElse(item, Set())
-        .map(_.toString)
-
-    val lines =
-      Set(
-        item.toString,
-        ConstructionVertex.MutexString
-      ) ++ mutexStrings
-
-    26 + 10 * lines
-      .map(_.length)
-      .max
-  }
+  protected def getItemVertexLabel(item: TItem, mutexes: Set[TItem]): String
 
 
-  private val estimatedHeights: Map[TItem, Double] =
-    items
-      .map(item =>
-        item -> estimateVertexHeight(item)
-      )
-      .toMap
+  private val itemWidths: Map[TItem, Double] =
+    itemDimensions.map {
+      case (item, dimension) =>
+        item -> dimension.width
+    }
 
 
-  private def estimateVertexHeight(item: TItem): Double = {
-    val mutexes =
-      mutexMap.getOrElse(item, Set())
-
-    val numLines =
-      if (mutexes.nonEmpty)
-        1 + 3 + mutexes.size
-      else
-        1
-
-    23 + 18 * numLines
-  }
+  private val itemHeights: Map[TItem, Double] =
+    itemDimensions.map {
+      case (item, dimension) =>
+        item -> dimension.height
+    }
 
 
   val width: Double =
     if (items.isEmpty)
       0
     else
-      estimatedWidths.values.max
+      itemWidths.values.max
 
 
   protected val horizontalSpacing: Double =
@@ -117,7 +107,7 @@ trait ConstructionLevel[TItem, TVertex <: ConstructionVertex] {
 
           val vertex = createVertex(
             item,
-            previousVertex.center.y + estimatedHeights(previousItem) / 2 + verticalSpacing
+            previousVertex.center.y + itemHeights(previousItem) / 2 + verticalSpacing
           )
 
           val currentPair =
@@ -140,7 +130,7 @@ trait ConstructionLevel[TItem, TVertex <: ConstructionVertex] {
           vertexMap(lastItem)
 
         val lastHeight =
-          estimatedHeights(lastItem)
+          itemHeights(lastItem)
 
         lastVertex.center.y + lastHeight / 2 - top
       })
@@ -150,15 +140,12 @@ trait ConstructionLevel[TItem, TVertex <: ConstructionVertex] {
   private def createVertex(item: TItem, currentTop: Double): TVertex = {
     val center = new Point2D(
       left + width / 2,
-      currentTop + estimatedHeights(item) / 2
+      currentTop + itemHeights(item) / 2
     )
 
 
     val size =
-      new Dimension2D(
-        estimatedWidths(item),
-        estimatedHeights(item)
-      )
+      itemDimensions(item)
 
     doCreateVertex(
       item,

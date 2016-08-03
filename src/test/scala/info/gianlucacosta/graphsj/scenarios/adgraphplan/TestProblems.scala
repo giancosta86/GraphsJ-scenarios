@@ -21,6 +21,7 @@
 package info.gianlucacosta.graphsj.scenarios.adgraphplan
 
 import java.io.InputStreamReader
+import javafx.embed.swing.JFXPanel
 
 import info.gianlucacosta.graphsj.scenarios.adgraphplan.outcomes.{FeasiblePlan, UnsatisfiedGoal}
 import info.gianlucacosta.graphsj.{BufferedOutputConsole, NopOutputConsole, OutputConsole}
@@ -309,6 +310,10 @@ class TestProblems extends FlatSpec with Matchers {
                            problemFileName: String,
                            outputConsole: OutputConsole = NopOutputConsole
                          ): (ConstructionGraph, GraphPlanOutcome) = {
+
+    //This is required to initialize the JavaFX toolkit in tests
+    new JFXPanel
+
     val problem =
       readProblem(problemFileName)
 

@@ -29,7 +29,7 @@ import info.gianlucacosta.lambdaprism.logic.basic.matching.{Environment, Symboli
 import info.gianlucacosta.lambdaprism.planning.problem._
 
 import scala.collection.mutable
-import scalafx.geometry.{BoundingBox, Bounds, Dimension2D}
+import scalafx.geometry.{BoundingBox, Bounds}
 
 object ConstructionGraph {
   def apply(problem: Problem): ConstructionGraph = {
@@ -57,34 +57,6 @@ case class ConstructionGraph private(
                                     ) extends VisualGraph[ConstructionVertex, ConstructionLink, ConstructionGraph] {
 
   require(propositionLevels.size == stepLevels.size + 1)
-
-
-  override def dimension: Dimension2D = {
-    val allLevels =
-      propositionLevels ++ stepLevels
-
-    val firstPropositionLevel =
-      propositionLevels.head
-
-    val latestPropositionLevel =
-      propositionLevels.last
-
-    new Dimension2D(
-      latestPropositionLevel.left + latestPropositionLevel.width + firstPropositionLevel.left,
-
-      2 * firstPropositionLevel.top + allLevels.map(level => level.height).max
-    )
-  }
-
-
-  override val renderDirected: Boolean =
-    false
-
-
-  override def visualCopy(directed: Boolean, dimension: Dimension2D, selectionBounds: Bounds): ConstructionGraph =
-    copy(
-      selectionBounds = selectionBounds
-    )
 
 
   override protected def graphCopy(vertexes: Set[ConstructionVertex], links: Set[ConstructionLink], bindings: Set[ArcBinding]): ConstructionGraph =

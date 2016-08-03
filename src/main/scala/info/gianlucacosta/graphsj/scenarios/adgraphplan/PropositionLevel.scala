@@ -229,4 +229,8 @@ case class PropositionLevel(
       size,
       center
     )
+
+
+  override protected def getItemVertexLabel(item: Proposition, mutexes: Set[Proposition]): String =
+    PropositionVertex.formatProposition(item, mutexes)
 }

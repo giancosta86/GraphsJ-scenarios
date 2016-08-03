@@ -159,8 +159,7 @@ class PrimAlgorithm[G <: VisualGraph[PrimVertex, PrimLink, G]] extends Algorithm
     })
 
 
-
-    //Now, I'll determine the "vBar" vertex
+    //Now, let's determine the "vBar" vertex
     var minBest = Double.PositiveInfinity
     vBar = null
     var treeBinding: (PrimVertex, PrimVertex) = null
@@ -180,9 +179,10 @@ class PrimAlgorithm[G <: VisualGraph[PrimVertex, PrimLink, G]] extends Algorithm
     }
 
 
-    val link = graph.getLinksBetween(Set(vBar.bestVertex.get, vBar))
-      .filter(link => link.weight == minBest)
-      .head
+    val link =
+      graph.getLinksBetween(Set(vBar.bestVertex.get, vBar))
+        .filter(link => link.weight == minBest)
+        .head
 
     val newLink =
       link.copy(

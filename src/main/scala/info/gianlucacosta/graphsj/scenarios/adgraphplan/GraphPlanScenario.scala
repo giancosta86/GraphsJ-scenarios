@@ -36,8 +36,16 @@ object GraphPlanScenario {
       HasMainActionsValidator
     )
 
+
   private val WebsiteUrl =
     "https://github.com/giancosta86/GraphsJ-scenarios"
+
+
+  val Stylesheets =
+    List(
+      BasicStyles.resourceUrl.toExternalForm,
+      getClass.getResource("GraphPlan.css").toExternalForm
+    )
 }
 
 
@@ -52,13 +60,15 @@ class GraphPlanScenario(private var problem: Problem)
 
 
   override def createDesignController(): GraphCanvasController[ConstructionVertex, ConstructionLink, ConstructionGraph] =
-    new DragDropController[ConstructionVertex, ConstructionLink, ConstructionGraph]
+    new DragDropController[ConstructionVertex, ConstructionLink, ConstructionGraph](false)
 
 
-  override val stylesheets: List[String] = List(
-    BasicStyles.resourceUrl.toExternalForm,
-    getClass.getResource("GraphPlan.css").toExternalForm
-  )
+  override def createRuntimeController(): GraphCanvasController[ConstructionVertex, ConstructionLink, ConstructionGraph] =
+    new DragDropController[ConstructionVertex, ConstructionLink, ConstructionGraph](false)
+
+
+  override val stylesheets: List[String] =
+    GraphPlanScenario.Stylesheets
 
 
   override def showHelp(): Unit = {

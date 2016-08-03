@@ -21,17 +21,15 @@
 package info.gianlucacosta.graphsj.scenarios.sst
 
 import info.gianlucacosta.eighthbridge.fx.canvas.GraphCanvasController
-import info.gianlucacosta.eighthbridge.fx.canvas.basic.BasicStyles
+import info.gianlucacosta.eighthbridge.fx.canvas.basic.{BasicStyles, DragDropController}
 import info.gianlucacosta.graphsj.{Algorithm, Scenario}
 import info.gianlucacosta.helios.desktop.DesktopUtils
-import info.gianlucacosta.helios.fx.dialogs.InputDialogs
-
-import scalafx.geometry.Dimension2D
+import info.gianlucacosta.helios.fx.dialogs.Alerts
 
 
 object PrimScenario {
   val Name: String =
-    "Prim's Shortest Spanning Tree"
+    "Prim's Shortest Spanning Tree (SST)"
 
   private val WebsiteUrl =
     "https://github.com/giancosta86/GraphsJ-scenarios"
@@ -49,20 +47,9 @@ class PrimScenario extends Scenario[PrimVertex, PrimLink, PrimGraph] {
 
 
   override def showSettings(designGraph: PrimGraph): Option[PrimGraph] = {
-    val newWidth = InputDialogs.askForDouble("Width:", designGraph.dimension.width, 1)
-    if (newWidth.isEmpty) {
-      return None
-    }
+    Alerts.showInfo("No settings available for this scenario.")
 
-    val newHeight = InputDialogs.askForDouble("Height:", designGraph.dimension.height, 1)
-    if (newHeight.isEmpty) {
-      return None
-    }
-
-
-    Some(
-      designGraph.visualCopy(dimension = new Dimension2D(newWidth.get, newHeight.get))
-    )
+    None
   }
 
 
@@ -74,11 +61,12 @@ class PrimScenario extends Scenario[PrimVertex, PrimLink, PrimGraph] {
     new PrimDesignController[PrimGraph]
 
 
+  override def createRuntimeController(): GraphCanvasController[PrimVertex, PrimLink, PrimGraph] =
+    new DragDropController[PrimVertex, PrimLink, PrimGraph](false)
+
+
   override def createDesignGraph(): PrimGraph =
-    new PrimGraph(
-      false,
-      new Dimension2D(700, 500)
-    )
+    new PrimGraph
 
 
   override def runStepsBeforePausing: Int =

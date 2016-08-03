@@ -22,7 +22,7 @@ package info.gianlucacosta.graphsj.scenarios.sst
 
 import java.util.UUID
 
-import info.gianlucacosta.eighthbridge.fx.canvas.basic.{BasicLink, LinkHandleRadius}
+import info.gianlucacosta.eighthbridge.fx.canvas.basic.BasicLink
 import info.gianlucacosta.eighthbridge.graphs.point2point.specific.Weighted
 import info.gianlucacosta.helios.mathutils.Numbers
 
@@ -42,8 +42,6 @@ case class PrimLink(weight: Double,
 
   checkWeight()
 
-
-  override val handleRadius: LinkHandleRadius = LinkHandleRadius()
 
   override val text: String = Numbers.smartString(weight)
 

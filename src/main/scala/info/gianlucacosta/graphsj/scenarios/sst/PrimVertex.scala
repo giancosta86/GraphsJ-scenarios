@@ -42,12 +42,6 @@ case class PrimVertex(
                        @transient selected: Boolean = false,
                        id: UUID = UUID.randomUUID()
                      ) extends BasicVertex[PrimVertex] with Named[PrimVertex] {
-
-
-  override def dimension: Dimension2D =
-    BasicVertex.estimateVertexSize(text, PrimVertex.FontDimension, 10)
-
-
   override val text: String =
     if (bestVertex.nonEmpty)
       s"${name} {${bestVertex.get.name}, ${Numbers.smartString(distanceFromBestVertex.get)}}"

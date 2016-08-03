@@ -39,4 +39,8 @@ class PrimDesignController[G <: VisualGraph[PrimVertex, PrimLink, G]] extends Ve
       graph.addLink(sourceVertex, targetVertex, link)
     )
   }
+
+
+  override def renderDirected: Boolean =
+    false
 }

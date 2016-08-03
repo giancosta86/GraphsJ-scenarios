@@ -126,4 +126,8 @@ case class StepLevel(
       size,
       center
     )
+
+
+  override protected def getItemVertexLabel(item: Step, mutexes: Set[Step]): String =
+    StepVertex.formatStep(item, mutexes)
 }
