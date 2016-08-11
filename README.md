@@ -30,6 +30,10 @@ The recommended way to install this project is:
 ![Add/Delete GraphPlan](screenshots/AdGraphPlan.png)
 
 
+### Basic Decision Tree
+
+![Basic Decision Tree](screenshots/BasicDecisionTree.png)
+
 ### Prim's Shortest Spanning Tree (SST)
 
 ![Prim's SST](screenshots/PrimSST.png)
